@@ -1,0 +1,191 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2>
+                    <i class="glyphicon glyphicon-th"></i>模擬銀行端</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog">
+                    </i></a><a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up">
+                    </i></a><a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove">
+                    </i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="row">
+                    <div class="box-content">
+                        <ul>
+                            <li>
+                                <h3>
+                                    開通儲值帳號流程，玉山銀行要POST回資料</h3>
+                            </li>
+                            <li>
+                                <h3>
+                                    新增紅利的SP
+                                </h3>
+                            </li>
+                            <li>
+                                <h3>
+                                    目前程式有MOCK的話就不需要做模擬但是有ATM CVS BarCode之類就需要模擬</h3>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div>
+<!--/row-->
+<script type="text/javascript">
+    $(function () {
+        $("#Submit1").click(function () {
+            $("#form2").submit();
+        });
+
+        $("#btnIDAuth").click(function () {
+            var mic, mid;
+            if ($("input[type='radio']:checked").size() > 0) {
+                mic = $("input[type='radio']:checked").val();
+                if ($("#MID").val() != "") { mid = $("#MID").val(); } else { alert("填寫MID"); return false; }
+            } else {
+                alert("請先選擇測試環境");
+                return false;
+            }
+            if (mid != "" && mic != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/MpPost/IDAuth/?mid=" + mid + "&type=" + mic,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != "" && data > 0) {
+                            alert("驗證成功");
+                        } else if (data == 0) {
+                            alert("驗證失敗");
+                        }
+                    },
+                    error: function (data) {
+                        alert(data.responseText);
+                    }
+                });
+            }
+        });
+
+        $("#btnIDAuthAllPay").click(function () {
+            var mic, mid;
+            if ($("input[type='radio']:checked").size() > 0) {
+                mic = $("input[type='radio']:checked").val();
+                if ($("#MIDAllPay").val() != "") { mid = $("#MIDAllPay").val(); } else { alert("填寫MID"); return false; }
+            } else {
+                alert("請先選擇測試環境");
+                return false;
+            }
+            if (mid != "" && mic != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/MpPost/IDAuthAllPay/?mid=" + mid + "&type=" + mic,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != "" && data > 0) {
+                            alert("開通成功");
+                        } else if (data == 0) {
+                            alert("開通失敗");
+                        }
+                    },
+                    error: function (data) {
+                        alert(data.responseText);
+                    }
+                });
+            }
+        });
+    });
+</script>
+<div class="row">
+    <!--身份認證-->
+    <div class="box col-md-3">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2>
+                    <i class="glyphicon glyphicon-th"></i>身份認證</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove">
+                    </i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="input-group col-md-10">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+                    <input id="MID" type="text" class="form-control" placeholder="MID">
+                </div>
+                <button id="btnIDAuth" class="btn btn-info btn-lg">
+                    認證</button>
+            </div>
+        </div>
+    </div>
+    <!--身份認證-->
+    <div class="box col-md-3">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2>
+                    <i class="glyphicon glyphicon-th"></i>Grid 3</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove">
+                    </i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div>
+                    <h2>
+                        玉山銀行模擬</h2>
+                    <button id="Submit1" class="btn btn-info btn-lg">
+                        MP模擬</button>
+                    <!--info E-->
+                </div>
+                <input name="HIcpNo" type="hidden" id="HIcpNo" value="O2G5M1" />
+                <input name="HIDN" type="hidden" id="HIDN" value="A182285293" />
+                <input name="HAccNo" type="hidden" id="HAccNo" value="8888182285293" />
+                <input name="HSp" type="hidden" id="HSp" value="1" />
+                <input name="HICPURL" type="hidden" id="HICPURL" value="http://devmember.allpay.com.tw:12004/bank/topup/cnt/esun/result" />
+                <input name="HKNo" type="hidden" id="HKNo" value="1" />
+                <input name="HStamp" type="hidden" id="HStamp" value="e1f214d6-3306-4ad2-a175-7b7f41e99b01" />
+                <input name="HRqTime" type="hidden" id="HRqTime" value="20140819 05:08:28:07423" />
+                <form id="form2" action="http://devmember.allpay.com.tw:12004/bank/topup/cnt/esun/result"
+                method="post">
+                <input name="CodeDesc" type="hidden" id="CodeDesc" value="D203" />
+                <input name="Code" type="hidden" id="Code" value="0000" />
+                <input name="AccNo" type="hidden" id="AccNo" value="8888182285293" />
+                <input name="HashKeyNo" type="hidden" id="HashKeyNo" value="1" />
+                <input name="IdentifyNo" type="hidden" id="IdentifyNo" value="9d6bef69e661bb73e55b2c6682467272694d29e7" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/span-->
+<div class="row">
+    <div class="box col-md-3">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2>
+                    <i class="glyphicon glyphicon-th"></i>開通儲值</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove">
+                    </i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="input-group col-md-10">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+                    <input id="MIDAllPay" type="text" class="form-control" placeholder="MID">
+                </div>
+                <button id="btnIDAuthAllPay" class="btn btn-info btn-lg">
+                    開通GO！</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/span-->

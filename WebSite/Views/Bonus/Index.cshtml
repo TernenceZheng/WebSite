@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2>
+                    <i class="glyphicon glyphicon-th"></i>新增紅利</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog">
+                    </i></a><a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up">
+                    </i></a><a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove">
+                    </i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="row">
+                    <div class="box-content">
+                        <ul>
+                            <li>
+                                <h3>
+                                    新增紅利的SP</h3>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/span-->
+</div>
+
+
+
+
+<script type="text/javascript">
+    $(function () {
+        $("#btnBonus").click(function () {
+            var mic, mid;
+            if ($("input[type='radio']:checked").size() > 0) {
+                mic = $("input[type='radio']:checked").val();
+                if ($("#MID").val() != "") { mid = $("#MID").val(); } else { alert("填寫MID"); return false; }
+            } else {
+                alert("請先選擇測試環境");
+                return false;
+            }
+            if (mid != "" && mic != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "/Bonus/Index/?mid=" + mid + "&type=" + mic,
+                    dataType: "json",
+                    success: function (data) {
+                        if (data != "" && data > 0) {
+                            alert("新增成功");
+                        } else if (data == 0) {
+                            alert("新增失敗");
+                        }
+                    },
+                    error: function (data) {
+                        alert(data.responseText);
+                    }
+                });
+            }
+        });
+
+    });
+</script>
+<div class="row">
+    <div class="box col-md-3">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2>
+                    <i class="glyphicon glyphicon-th"></i>新增紅利</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove">
+                    </i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <div class="input-group col-md-10">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
+                    <input id="MID" type="text" class="form-control" placeholder="MID">
+                </div>
+                <button id="btnBonus" class="btn btn-info btn-lg">
+                    增加紅利GO！</button>
+            </div>
+        </div>
+    </div>
+</div>

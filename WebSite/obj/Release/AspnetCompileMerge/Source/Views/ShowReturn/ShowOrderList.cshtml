@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.Title = "ShowOrderList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="box col-md-12">
+        <div class="box-inner">
+            <div class="box-header well" data-original-title="">
+                <h2>
+                    Combined All</h2>
+                <div class="box-icon">
+                    <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog">
+                    </i></a><a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up">
+                    </i></a><a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove">
+                    </i></a>
+                </div>
+            </div>
+            <div class="box-content">
+                <table id="letterList" class="table table-bordered table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th>
+                                廠商編號
+                            </th>
+                            <th>
+                               廠商交易編號
+                            </th>
+                            <th>
+                                交易狀態
+                            </th>
+                            <th>
+                                交易訊息
+                            </th>
+                            <th>
+                                AllPay的交易編號
+                            </th>
+                            <th>
+                                交易金額
+                            </th>
+                            <th>
+                                付款時間
+                            </th>
+                            <th>
+                                會員選擇的付款方式
+                            </th>
+                            <th>
+                                通路費
+                            </th>
+                            <th>
+                                訂單成立時間
+                            </th>
+                            <th>
+                                是否為模擬付款
+                            </th>
+                            <th>
+                                檢查碼k
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/span-->
+@*<tr>
+    <td>
+        Muhammad Usman
+    </td>
+    <td class="center">
+        2012/01/01
+    </td>
+    <td class="center">
+        Member
+    </td>
+    <td class="center">
+        <span class="label-success label label-default">Active</span>
+    </td>
+</tr>*@
+
+
+<script type="text/javascript">
+    var tbl;
+    $(function () {
+        tbl = $('#letterList').dataTable({
+            "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+            "bServerSide": true,
+            "sAjaxSource": "/ShowReturn/ShowOrderListJSON", //mvc後臺ajax調用介面。
+            'bPaginate': true, //是否分頁。
+            "bProcessing": false, //當datatable獲取資料時候是否顯示正在處理提示資訊。
+            'bFilter': true, //是否使用內置的過濾功能。
+            'bLengthChange': true, //是否允許使用者自訂每頁顯示條數。
+            'sPaginationType': 'bootstrap', //分頁樣式
+            "aoColumns": [
+                { "mDataProp": "MerchantID" },
+                { "mDataProp": "MerchantTradeNo" },
+                { "mDataProp": "RtnCode" },
+                { "mDataProp": "RtnMsg" },
+                { "mDataProp": "TradeNo" },
+                { "mDataProp": "TradeAmt" },
+                { "mDataProp": "PaymentDate" },
+                { "mDataProp": "PaymentType" },
+                { "mDataProp": "PaymentTypeChargeFee" },
+                { "mDataProp": "TradeDate" },
+                { "mDataProp": "SimulatePaid" },
+                { "mDataProp": "CheckMacValue" }
+            ]
+        });
+
+    });
+</script>

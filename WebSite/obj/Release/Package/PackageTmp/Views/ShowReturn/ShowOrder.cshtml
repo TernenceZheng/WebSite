@@ -1,0 +1,29 @@
+﻿@model WebSite.Models.ViewModels.GetFinishTrade
+@{
+    ViewBag.Title = "ShowOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="box col-md-3">
+    <div class="box-inner">
+        <div class="box-header well">
+            <h2>
+                交易明細表</h2>
+            <div class="box-icon">
+                <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove">
+                </i></a>
+            </div>
+        </div>
+        <div class="box-content">
+            <ul>
+                <li>廠商編號：@Model.MerchantID</li>
+                <li>廠商交易編號： @Model.MerchantTradeNo</li>
+                <li>交易狀態： @Model.RtnCode </li>
+                <li>交易訊息： @Model.RtnMsg</li>
+                <li>AllPay的交易編號： @Model.TradeNo</li>
+                <li>交易金額： @Model.TradeAmt</li>
+                <li>付款時間： @Model.PaymentDate</li>
+
+            </ul>
+        </div>
+    </div>
+</div>

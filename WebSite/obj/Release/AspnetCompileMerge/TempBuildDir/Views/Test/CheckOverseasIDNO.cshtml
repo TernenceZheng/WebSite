@@ -1,0 +1,31 @@
+﻿@model WebSite.Models.ViewModels.Company
+@{
+    ViewBag.Title = "CheckOverseasIDNO";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    CheckOverseasIDNO</h2>
+@using (Html.BeginForm("CheckOverseasIDNO", "Test", FormMethod.Post))
+{    
+
+    @Html.TextBoxFor(model => model.IDNO, new { placeholder = "請填寫負責人身分證字號", tabindex = "5", maxlength = 10 })
+
+    @ViewBag.IDNO
+    
+    <input type="submit" value="送出" />
+    
+    
+
+}
+@using (Html.BeginForm("GoChkCompanyPhone", "Test", FormMethod.Post))
+{    
+
+    <br />
+    <br />
+    <span>這裡做電話驗證完成的流程</span>
+        
+    @Html.TextBoxFor(model => model.CellPhone, new { placeholder = "請填寫電話", tabindex = "5", maxlength = 10 })
+    @Html.TextBoxFor(model => model.AuthCompanyPhone, new { placeholder = "請填寫電話", tabindex = "5", maxlength = 10, Value = "0918907098" })
+    
+    <input type="submit" value="送出" />
+}

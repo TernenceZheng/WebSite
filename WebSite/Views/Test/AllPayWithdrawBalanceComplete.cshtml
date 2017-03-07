@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "AllPayWithdrawBalanceComplete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>
+    AllPayWithdrawBalanceComplete</h2>
+<form action="http://devpayment.allpay.com.tw:12005/BaseMember/AllPayWithdrawBalanceComplete"
+method="get">
+@Html.Hidden("bankCode", "700")
+@Html.Hidden("bankAccount", "11111111122222")
+@Html.Hidden("amount", "")
+<input type="submit" value="GO" />
+</form>

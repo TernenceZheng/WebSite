@@ -1,0 +1,96 @@
+﻿@model WebSite.Models.ViewModels.Company
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    function chk() {
+        var id = $("#UnifiedBusinessNo").val();
+
+        if (!CheckCompanyNo(id)) {
+            alert("錯誤");
+        } else {
+            alert("正確");
+        }
+        return false;
+    }
+    function CheckCompanyNo(idvalue) {
+        var tmp = new String("12121241");
+        var sum = 0;
+        re = /^\d{8}$/;
+        if (!re.test(idvalue)) {
+            //alert("格式不對！");
+            return false;
+        }
+        for (i = 0; i < 8; i++) {
+            s1 = parseInt(idvalue.substr(i, 1));
+            s2 = parseInt(tmp.substr(i, 1));
+            sum += cal(s1 * s2);
+        }
+        if (!valid(sum)) {
+            if (idvalue.substr(6, 1) == "7") return (valid(sum + 1));
+        }
+        return (valid(sum));
+    }
+
+
+
+    function valid(n) {
+        return (n % 10 == 0) ? true : false;
+    }
+
+
+
+    function cal(n) {
+        var sum = 0;
+        while (n != 0) {
+            sum += (n % 10);
+            n = (n - n % 10) / 10;  // 取整數
+        }
+        return sum;
+    }
+</script>
+@using (Html.BeginForm("Index", "IDNO", FormMethod.Post))
+{
+    <div class="row">
+        <div class="box col-md-6">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2>
+                        <i class="glyphicon glyphicon-th"></i>Grid 6</h2>
+                    <div class="box-icon">
+                        <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog">
+                        </i></a><a href="#" class="btn btn-minimize btn-round btn-default"><i class="glyphicon glyphicon-chevron-up">
+                        </i></a><a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove">
+                        </i></a>
+                    </div>
+                </div>
+                <div class="box-content">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group has-success col-md-8">
+                                <label class="control-label" for="inputSuccess1">
+                                    產生統一編號</label>
+                                @Html.TextBoxFor(model => model.UnifiedBusinessNo, new { @class = "form-control", placeholder = ViewBag.String, @Value = ViewBag.String })
+                                <label class="control-label" for="inputSuccess1">
+                                    @Html.Raw(ViewBag.String)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>
+                                <button id="submit" class="btn btn-primary btn-lg">
+                                    產生</button></h6>
+                            <h6>
+                                <button class="btn btn-primary btn-lg" onclick="javascript:chk(); return false;">
+                                    驗證</button></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+}
+<!--/row-->

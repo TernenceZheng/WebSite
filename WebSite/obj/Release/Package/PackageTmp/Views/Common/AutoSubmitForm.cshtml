@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "AutoSubmitForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+  	<div class="bridge align_c">
+      <img src="@Url.Content("~/img/Diamond.png")" /><br /><img src="@Url.Content("~/img/time_0.gif")" />
+      <h2>請勿關閉視窗，以避免交易失敗！</h2>
+      <p>Transaction data processing… DO NOT refresh or close the webpage.</p>
+    </div>
+    <div>
+        @Html.Raw((string)TempData["PostForm"])
+    </div>
